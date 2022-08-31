@@ -50,8 +50,16 @@ app.put('/api/courses/:id', (req,res)=>{
      
     course.name = req.body.name;
     res.send(course);
-    
+})
 
+app.delete('/api/course/:id', (req,res)=>{
+  const course = courses.find((c)=> c.id === parseInt(req.params.id));
+  if(!course) res.status(404).sendStatus('course not available..')
+
+  const index = courses.indexOf(course);
+  courses.splice(index, 1);
+
+  res.send(course);
 })
 
 function validateCourse(course){
